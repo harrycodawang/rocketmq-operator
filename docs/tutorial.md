@@ -147,3 +147,11 @@ kubectl delete -f deploy/04-cluster-2m.yaml
 kubectl delete -f deploy/03-deploymentWithConfig.yaml
 docker run --name test-rocketmq-operator -ti --entrypoint /bin/sh rocketmqinc/rocketmq-operator:0.1.2-dev 
 ```
+
+### Scale the cluster
+
+#### 1) Scale the BrokerCluster CRD object
+```
+kubectl patch BrokerCluster mybrokercluster --type='merge' -p '{"spec":{"groupReplica":2}}'
+```
+

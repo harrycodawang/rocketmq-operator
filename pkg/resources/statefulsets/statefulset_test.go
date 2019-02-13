@@ -18,10 +18,11 @@ package statefulsets
 
 import (
 	"encoding/json"
-	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
-	apps "k8s.io/api/apps/v1"
 	"testing"
 	"unsafe"
+
+	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	apps "k8s.io/api/apps/v1"
 )
 
 func TestNewStatefulSet(t *testing.T) {
@@ -42,7 +43,7 @@ func TestNewStatefulSet(t *testing.T) {
 		},
 	}
 	for i, test := range tests {
-		result := NewStatefulSet(test.cluster, test.index)
+		result := NewStatefulSet(test.cluster, test.index, "")
 		out, _ := json.MarshalIndent(result, "", "     ")
 		str := (*string)(unsafe.Pointer(&out))
 		t.Logf("Test number:%d\n"+

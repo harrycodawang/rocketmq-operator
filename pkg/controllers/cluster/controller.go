@@ -361,7 +361,7 @@ func (m *BrokerController) syncHandler(key string) error {
 		// If the resource doesn't exist, we'll create it
 		if apierrors.IsNotFound(err) {
 			glog.V(2).Infof("Creating a new StatefulSet for cluster %q", nsName)
-			ss = statefulsets.NewStatefulSet(cluster, index)
+			ss = statefulsets.NewStatefulSet(cluster, index, cluster.Spec.StorageClass)
 			err = m.statefulSetControl.CreateStatefulSet(ss)
 		}
 		// If an error occurs during Get/Create, we'll requeue the item so we can
@@ -387,7 +387,7 @@ func (m *BrokerController) syncHandler(key string) error {
 			glog.V(4).Infof("Updating %q: membersPerGroup=%d statefulSetReplicas=%d",
 				nsName, cluster.Spec.MembersPerGroup, ss.Spec.Replicas)
 			old := ss.DeepCopy()
-			ss = statefulsets.NewStatefulSet(cluster, index)
+			ss = statefulsets.NewStatefulSet(cluster, index, cluster.Spec.StorageClass)
 			if err := m.statefulSetControl.Patch(old, ss); err != nil {
 				// Requeue the item so we can attempt processing again later.
 				// This could have been caused by a temporary network failure etc.

@@ -18,17 +18,18 @@ package statefulsets
 
 import (
 	"fmt"
+	"strconv"
+
 	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
 	"github.com/huanwei/rocketmq-operator/pkg/constants"
 	apps "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"strconv"
 )
 
-func NewStatefulSet(cluster *v1alpha1.BrokerCluster, index int) *apps.StatefulSet {
+func NewStatefulSet(cluster *v1alpha1.BrokerCluster, index int, storageClass string) *apps.StatefulSet {
 	containers := []v1.Container{
 		brokerContainer(cluster, index),
 	}
@@ -42,7 +43,7 @@ func NewStatefulSet(cluster *v1alpha1.BrokerCluster, index int) *apps.StatefulSe
 		constants.BrokerRoleLabel:    brokerRole,
 	}
 
-	var logQuantity,storeQuantity  resource.Quantity
+	var logQuantity, storeQuantity resource.Quantity
 	var err error
 	logQuantity, err = resource.ParseQuantity("5Gi")
 	if err != nil {
@@ -54,10 +55,23 @@ func NewStatefulSet(cluster *v1alpha1.BrokerCluster, index int) *apps.StatefulSe
 	}
 
 	volumeClaimTemplates := []v1.PersistentVolumeClaim{
-		nfsPersistentVolumeClaim("demo-nfs-storage", logQuantity, "brokerlogs"),
-		nfsPersistentVolumeClaim("demo-nfs-storage", storeQuantity,"brokerstore"),
+		getPersistentVolumeClaim(storageClass, logQuantity, "brokerlogs"),
+		getPersistentVolumeClaim(storageClass, storeQuantity, "brokerstore"),
 	}
-
+	emptyDirVolumes := []v1.Volume{
+		{
+			Name: "brokerlogs",
+			VolumeSource: v1.VolumeSource{
+				EmptyDir: &v1.EmptyDirVolumeSource{},
+			},
+		},
+		{
+			Name: "brokerstore",
+			VolumeSource: v1.VolumeSource{
+				EmptyDir: &v1.EmptyDirVolumeSource{},
+			},
+		},
+	}
 	ssReplicas := int32(cluster.Spec.MembersPerGroup)
 	ss := &apps.StatefulSet{
 		ObjectMeta: metav1.ObjectMeta{
@@ -86,14 +100,20 @@ func NewStatefulSet(cluster *v1alpha1.BrokerCluster, index int) *apps.StatefulSe
 					NodeSelector: cluster.Spec.NodeSelector,
 					//Affinity:     cluster.Spec.Affinity,
 					Containers: containers,
+					// Volumes:    emptyDirVolumes,
 				},
 			},
 			ServiceName: fmt.Sprintf(cluster.Name+`-svc-%d`, index),
-			VolumeClaimTemplates: volumeClaimTemplates,
+			// VolumeClaimTemplates: volumeClaimTemplates,
 		},
 	}
-	return ss
 
+	if len(storageClass) > 0 {
+		ss.Spec.VolumeClaimTemplates = volumeClaimTemplates
+	} else {
+		ss.Spec.Template.Spec.Volumes = emptyDirVolumes
+	}
+	return ss
 }
 
 func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
@@ -154,16 +174,36 @@ func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
 
 }
 
-func nfsPersistentVolumeClaim(storageClassName string, quantity resource.Quantity, name string) v1.PersistentVolumeClaim{
+func nfsPersistentVolumeClaim(storageClassName string, quantity resource.Quantity, name string) v1.PersistentVolumeClaim {
 	annotations := map[string]string{
 		constants.BrokerVolumeStorageClass: storageClassName,
 	}
 	return v1.PersistentVolumeClaim{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name,
+			Name:        name,
 			Annotations: annotations,
 		},
-		Spec: v1.PersistentVolumeClaimSpec {
+		Spec: v1.PersistentVolumeClaimSpec{
+			AccessModes: []v1.PersistentVolumeAccessMode{v1.ReadWriteOnce},
+			Resources: v1.ResourceRequirements{
+				Requests: v1.ResourceList{
+					v1.ResourceStorage: quantity,
+				},
+			},
+		},
+	}
+}
+
+func getPersistentVolumeClaim(storageClassName string, quantity resource.Quantity, name string) v1.PersistentVolumeClaim {
+	annotations := map[string]string{
+		constants.BrokerVolumeStorageClass: storageClassName,
+	}
+	return v1.PersistentVolumeClaim{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:        name,
+			Annotations: annotations,
+		},
+		Spec: v1.PersistentVolumeClaimSpec{
 			AccessModes: []v1.PersistentVolumeAccessMode{v1.ReadWriteOnce},
 			Resources: v1.ResourceRequirements{
 				Requests: v1.ResourceList{
