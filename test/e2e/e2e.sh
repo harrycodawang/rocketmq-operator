@@ -14,6 +14,16 @@ util::test::try_until_not_text 'kubectl get po' 'rocketmq-operator.* Running' "1
 util::test::expect_success_and_text 'kubectl scale --replicas=1 deploy/rocketmq-operator' 'scaled'
 util::test::try_until_text 'kubectl get po' 'rocketmq-operator.* Running' "10000" "1" 
 
+util::test::expect_success_and_text 'kubectl create -f deploy/04-minikube-1m.yaml' 'created'
+util::test::try_until_text 'kubectl get po' 'mybrokercluster.* Running' "20000" "1"
+
+kubectl patch BrokerCluster mybrokercluster --type='merge' -p '{"spec":{"groupReplica":2}}'
+util::test::try_until_text 'kubectl get po' 'mybrokercluster-1.* Running' "60000" "1"
+
+util::test::expect_success_and_text 'kubectl delete -f deploy/04-minikube-1m.yaml' 'deleted'
+util::test::try_until_text 'kubectl get po' 'mybrokercluster.* Terminating' "20000" "1"
+util::test::try_until_not_text 'kubectl get po' 'mybrokercluster' "60000" "1"
+
 
 
 
