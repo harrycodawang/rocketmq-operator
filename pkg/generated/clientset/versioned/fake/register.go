@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	rocketmqv1alpha1 "github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	rocketmqv1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

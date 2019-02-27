@@ -17,8 +17,8 @@ limitations under the License.
 package mock
 
 import (
-	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
-	listersv1alpha1 "github.com/huanwei/rocketmq-operator/pkg/generated/listers/rocketmq/v1alpha1"
+	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	listersv1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/generated/listers/rocketmq/v1alpha1"
 	"k8s.io/apimachinery/pkg/labels"
 )
 

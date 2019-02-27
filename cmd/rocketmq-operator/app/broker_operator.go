@@ -28,11 +28,11 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 
-	cluster "github.com/huanwei/rocketmq-operator/pkg/controllers/cluster"
-	clientset "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned"
-	informers "github.com/huanwei/rocketmq-operator/pkg/generated/informers/externalversions"
-	operatoropts "github.com/huanwei/rocketmq-operator/pkg/options"
-	signals "github.com/huanwei/rocketmq-operator/pkg/util/signals"
+	cluster "github.com/harrycodawang/rocketmq-operator/pkg/controllers/cluster"
+	clientset "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned"
+	informers "github.com/harrycodawang/rocketmq-operator/pkg/generated/informers/externalversions"
+	operatoropts "github.com/harrycodawang/rocketmq-operator/pkg/options"
+	signals "github.com/harrycodawang/rocketmq-operator/pkg/util/signals"
 )
 
 // resyncPeriod computes the time interval a shared informer waits before

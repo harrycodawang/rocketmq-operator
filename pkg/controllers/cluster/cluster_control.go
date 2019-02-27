@@ -24,9 +24,9 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/util/retry"
 
-	v1alpha1 "github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
-	clientset "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned"
-	listersv1alpha1 "github.com/huanwei/rocketmq-operator/pkg/generated/listers/rocketmq/v1alpha1"
+	v1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	clientset "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned"
+	listersv1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/generated/listers/rocketmq/v1alpha1"
 )
 
 type clusterUpdaterInterface interface {

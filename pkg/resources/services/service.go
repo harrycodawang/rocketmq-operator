@@ -18,8 +18,8 @@ package services
 
 import (
 	"fmt"
-	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
-	"github.com/huanwei/rocketmq-operator/pkg/constants"
+	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	"github.com/harrycodawang/rocketmq-operator/pkg/constants"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"

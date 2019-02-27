@@ -17,8 +17,8 @@ limitations under the License.
 package cluster
 
 import (
-	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
-	"github.com/huanwei/rocketmq-operator/pkg/test/mock"
+	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	"github.com/harrycodawang/rocketmq-operator/pkg/test/mock"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/labels"
 	"testing"

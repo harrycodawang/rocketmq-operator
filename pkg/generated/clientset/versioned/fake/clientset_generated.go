@@ -19,9 +19,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned"
-	rocketmqv1alpha1 "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned/typed/rocketmq/v1alpha1"
-	fakerocketmqv1alpha1 "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned/typed/rocketmq/v1alpha1/fake"
+	clientset "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned"
+	rocketmqv1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned/typed/rocketmq/v1alpha1"
+	fakerocketmqv1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned/typed/rocketmq/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

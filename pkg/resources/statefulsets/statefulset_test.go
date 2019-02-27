@@ -21,7 +21,7 @@ import (
 	"testing"
 	"unsafe"
 
-	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
 	apps "k8s.io/api/apps/v1"
 )
 

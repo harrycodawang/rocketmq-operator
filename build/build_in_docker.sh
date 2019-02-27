@@ -2,7 +2,7 @@
 if [ -z "$GOPATH" ]; then
   GOPATH="$HOME/Downloads/gopath"
 fi
-SRC_HOME_RELATIVE=src/github.com/huanwei/rocketmq-operator
+SRC_HOME_RELATIVE=src/github.com/harrycodawang/rocketmq-operator
 TARGET_FILE_RELATIVE=${SRC_HOME_RELATIVE}/docker/rocketmq-operator/rocketmq-operator
 TARGET_FILE=${GOPATH}/${TARGET_FILE_RELATIVE}
 TARGET_FILE_IN_DOCKER=/gopath/${TARGET_FILE_RELATIVE}

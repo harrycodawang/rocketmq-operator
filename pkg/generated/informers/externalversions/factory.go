@@ -23,9 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned"
-	internalinterfaces "github.com/huanwei/rocketmq-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	rocketmq "github.com/huanwei/rocketmq-operator/pkg/generated/informers/externalversions/rocketmq"
+	versioned "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned"
+	internalinterfaces "github.com/harrycodawang/rocketmq-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	rocketmq "github.com/harrycodawang/rocketmq-operator/pkg/generated/informers/externalversions/rocketmq"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

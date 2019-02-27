@@ -19,8 +19,8 @@ limitations under the License.
 package rocketmq
 
 import (
-	internalinterfaces "github.com/huanwei/rocketmq-operator/pkg/generated/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/huanwei/rocketmq-operator/pkg/generated/informers/externalversions/rocketmq/v1alpha1"
+	internalinterfaces "github.com/harrycodawang/rocketmq-operator/pkg/generated/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/generated/informers/externalversions/rocketmq/v1alpha1"
 )
 
 // Interface provides access to each of this group's versions.

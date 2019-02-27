@@ -17,7 +17,7 @@ limitations under the License.
 package mock
 
 import (
-	rocketmqv1alpha1 "github.com/huanwei/rocketmq-operator/pkg/generated/clientset/versioned/typed/rocketmq/v1alpha1"
+	rocketmqv1alpha1 "github.com/harrycodawang/rocketmq-operator/pkg/generated/clientset/versioned/typed/rocketmq/v1alpha1"
 	"k8s.io/client-go/rest"
 )
 

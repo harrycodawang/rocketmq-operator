@@ -26,9 +26,9 @@ import (
 
 	"k8s.io/apiserver/pkg/util/logs"
 
-	"github.com/huanwei/rocketmq-operator/cmd/rocketmq-operator/app"
-	operatoropts "github.com/huanwei/rocketmq-operator/pkg/options"
-	"github.com/huanwei/rocketmq-operator/pkg/version"
+	"github.com/harrycodawang/rocketmq-operator/cmd/rocketmq-operator/app"
+	operatoropts "github.com/harrycodawang/rocketmq-operator/pkg/options"
+	"github.com/harrycodawang/rocketmq-operator/pkg/version"
 )
 
 const (

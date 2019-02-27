@@ -17,7 +17,7 @@ limitations under the License.
 package cluster
 
 import (
-	"github.com/huanwei/rocketmq-operator/pkg/controllers/util"
+	"github.com/harrycodawang/rocketmq-operator/pkg/controllers/util"
 	"k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes"
 	corelistersv1 "k8s.io/client-go/listers/core/v1"

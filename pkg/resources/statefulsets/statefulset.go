@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/huanwei/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
-	"github.com/huanwei/rocketmq-operator/pkg/constants"
+	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
+	"github.com/harrycodawang/rocketmq-operator/pkg/constants"
 	apps "k8s.io/api/apps/v1"
 	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
