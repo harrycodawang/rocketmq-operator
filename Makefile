@@ -23,7 +23,7 @@ build-image:
 	pushd docker/rocketmq-operator && sh ./build-image.sh && popd
 .PHONY: build-image
 
-# Build the docker image
+# Build and push the docker image
 #
 # Example:
 #   make build-image
@@ -38,4 +38,12 @@ push:
 e2e:
 	bash test/e2e/e2e.sh
 .PHONY: e2e
+
+# Trigger to test docker image
+#
+# Example:
+#   make test-image
+test-image:
+	bash test/integration/test-image.sh
+.PHONY: test-image
 
