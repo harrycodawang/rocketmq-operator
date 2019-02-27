@@ -14,7 +14,8 @@ util::test::try_until_not_text 'kubectl get po' 'rocketmq-operator.* Running' "1
 util::test::expect_success_and_text 'kubectl scale --replicas=1 deploy/rocketmq-operator' 'scaled'
 util::test::try_until_text 'kubectl get po' 'rocketmq-operator.* Running' "10000" "1" 
 
-util::test::expect_success_and_text 'kubectl create -f deploy/04-minikube-1m.yaml' 'created'
+echo "NAME_SERVERS=$NAME_SERVERS, please verify setting the correct NAME_SERVERS"
+cat deploy/04-minikube-1m.yaml | sed s/\$NAME_SERVERS/$NAME_SERVERS/ | kubectl create -f -
 util::test::try_until_text 'kubectl get po' 'mybrokercluster.* Running' "20000" "1"
 
 kubectl patch BrokerCluster mybrokercluster --type='merge' -p '{"spec":{"groupReplica":2}}'

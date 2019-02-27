@@ -6,7 +6,7 @@ metadata:
   namespace : rocketmq-operator
 spec:
   brokerImage: rocketmqinc/rocketmq:4.3.2-k8s
-  nameServers: 10.0.2.15:9876
+  nameServers: $NAME_SERVERS
   allMaster: true
   replicationMode: SYNC
   groupReplica: 1

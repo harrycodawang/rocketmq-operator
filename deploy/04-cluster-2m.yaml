@@ -5,8 +5,8 @@ metadata:
   name: mybrokercluster
   namespace : rocketmq-operator
 spec:
-  brokerImage: huanwei/rocketmq-broker-k8s:4.3.2
-  nameServers: 192.168.0.96:9876;192.168.0.97:9876
+  brokerImage: rocketmqinc/rocketmq:4.3.2-k8s
+  nameServers: $NAME_SERVERS
   allMaster: true
   replicationMode: SYNC
   groupReplica: 2

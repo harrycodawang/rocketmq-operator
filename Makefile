@@ -23,11 +23,19 @@ build-image:
 	pushd docker/rocketmq-operator && sh ./build-image.sh && popd
 .PHONY: build-image
 
-# Test e2e case with deleting/creating k8s resources
+# Build the docker image
 #
 # Example:
-#   make e2e-k8s-resources
-e2e-k8s-resources:
-	sh test/e2e/k8s-resources.sh
-.PHONY: e2e-k8s-resources
+#   make build-image
+push:
+	pushd docker/rocketmq-operator && sh ./build-image.sh && popd
+.PHONY: push
+
+# Trigger to e2e test
+#
+# Example:
+#   make e2e
+e2e:
+	bash test/e2e/e2e.sh
+.PHONY: e2e
 
