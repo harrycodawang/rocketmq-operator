@@ -23,9 +23,8 @@ type BrokerClusterSpec struct {
 	BrokerImage         string                        `json:"brokerImage"`
 	NameServers         string                        `json:"nameServers"`
 	StorageClass        string                        `json:"storageClass"`
-	AllMaster           bool                          `json:"allMaster`
 	ReplicationMode     string                        `json:"replicationMode`
-	GroupReplica        int32                         `json:"groupReplica, omitempty"`
+	GroupReplicas       int32                         `json:"groupReplicas, omitempty"`
 	MembersPerGroup     int32                         `json:"membersPerGroup, omitempty"`
 	Properties          map[string]string             `json:"properties, omitempty"`
 	NodeSelector        map[string]string             `json:"nodeSelector, omitempty"`
@@ -34,6 +33,7 @@ type BrokerClusterSpec struct {
 	Config              *corev1.LocalObjectReference  `json:"config,omitempty"`
 }
 
+type BrokerGroupConditionType string
 type BrokerClusterConditionType string
 
 const BrokerClusterReady BrokerClusterConditionType = "Ready"
@@ -46,10 +46,21 @@ type BrokerClusterCondition struct {
 	Message            string
 }
 
+type BrokerGroupCondition struct {
+	Type               BrokerGroupConditionType
+	Status             corev1.ConditionStatus
+	LastTransitionTime metav1.Time
+	Reason             string
+	Message            string
+}
+
 type BrokerClusterStatus struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Conditions        []BrokerClusterCondition
+	Groups     []BrokerGroupStatus
+	Conditions []BrokerClusterCondition
+}
+
+type BrokerGroupStatus struct {
+	Conditions []BrokerGroupCondition
 }
 
 // +genclient

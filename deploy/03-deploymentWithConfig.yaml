@@ -38,7 +38,7 @@ spec:
             name: rocketmq-operator-config
       containers:
       - name: rocketmq-operator-controller
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         image: rocketmqinc/rocketmq-operator:0.1.2-dev
         ports:
         - containerPort: 10254

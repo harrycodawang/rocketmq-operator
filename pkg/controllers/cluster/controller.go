@@ -315,7 +315,7 @@ func (m *BrokerController) syncHandler(key string) error {
 	//todo: validate cluster, update cluster labels
 
 	// sync cluster
-	groupReplica := int(cluster.Spec.GroupReplica)
+	groupReplica := int(cluster.Spec.GroupReplicas)
 	for index := 0; index < groupReplica; index++ {
 		svc, err := m.serviceLister.Services(cluster.Namespace).Get(fmt.Sprintf(cluster.Name+`-svc-%d`, index))
 		// If the resource doesn't exist, we'll create it
@@ -346,9 +346,6 @@ func (m *BrokerController) syncHandler(key string) error {
 		return nil
 	}
 
-	if cluster.Spec.AllMaster {
-		cluster.Spec.MembersPerGroup = 1
-	}
 	/*membersPerGroup := 1
 	if cluster.Spec.ClusterMode != "ALL-MASTER" && cluster.Spec.MembersPerGroup != nil{
 		membersPerGroup := int(cluster.Spec.MembersPerGroup)
@@ -421,7 +418,7 @@ func (m *BrokerController) updateClusterStatus(cluster *v1alpha1.BrokerCluster, 
 	if condition == nil {
 		condition = &v1alpha1.BrokerClusterCondition{Type: v1alpha1.BrokerClusterReady}
 	}
-	if readyGroups == int(cluster.Spec.GroupReplica) && readyMembers == int(cluster.Spec.GroupReplica)*int(cluster.Spec.MembersPerGroup) {
+	if readyGroups == int(cluster.Spec.GroupReplicas) && readyMembers == int(cluster.Spec.GroupReplicas)*int(cluster.Spec.MembersPerGroup) {
 		condition.Status = corev1.ConditionTrue
 	} else {
 		condition.Status = corev1.ConditionFalse

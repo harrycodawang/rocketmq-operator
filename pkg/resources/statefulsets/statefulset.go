@@ -18,7 +18,6 @@ package statefulsets
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
 	"github.com/harrycodawang/rocketmq-operator/pkg/constants"
@@ -139,10 +138,6 @@ func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
 				Value: cluster.Spec.Properties["FILE_RESERVED_TIME"],
 			},
 			{
-				Name:  "ALL_MASTER",
-				Value: strconv.FormatBool(cluster.Spec.AllMaster),
-			},
-			{
 				Name:  "BROKER_NAME",
 				Value: fmt.Sprintf(`broker-%d`, index),
 			},
@@ -155,7 +150,7 @@ func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
 				Value: cluster.Spec.Properties["FLUSH_DISK_TYPE"],
 			},
 			{
-				Name:  "NAMESRV_ADDRESS",
+				Name:  "NAMESRV_ADDR",
 				Value: cluster.Spec.NameServers,
 			},
 		},

@@ -35,8 +35,8 @@ func (c *BrokerCluster) EnsureDefaults() *BrokerCluster {
 	if c.Spec.BrokerImage == "" {
 		c.Spec.BrokerImage = defaultBrokerImage
 	}
-	if c.Spec.GroupReplica == 0 {
-		c.Spec.GroupReplica = defaultGroups
+	if c.Spec.GroupReplicas == 0 {
+		c.Spec.GroupReplicas = defaultGroups
 	}
 
 	if c.Spec.MembersPerGroup == 0 {
