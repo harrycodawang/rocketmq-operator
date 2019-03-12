@@ -1,4 +1,4 @@
 #!/bin/bash
 
 ./brokerGenConfig.sh
-./mqbroker -n $NAMESRV_ADDRESS
+./mqbroker -n $NAMESRV_ADDR

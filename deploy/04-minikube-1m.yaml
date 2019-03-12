@@ -7,8 +7,7 @@ metadata:
 spec:
   brokerImage: rocketmqinc/rocketmq:4.3.2-k8s
   nameServers: $NAMESRV_ADDR
-  allMaster: true
   replicationMode: SYNC
-  groupReplica: 1
+  groupReplicas: 1
   membersPerGroup: 1
   storageClass: standard

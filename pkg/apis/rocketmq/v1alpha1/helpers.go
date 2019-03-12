@@ -45,18 +45,14 @@ func (c *BrokerCluster) EnsureDefaults() *BrokerCluster {
 	if c.Spec.Properties == nil {
 		c.Spec.Properties = map[string]string{}
 	}
-	if c.Spec.Properties["DELETE_WHEN"] == "" {
-		c.Spec.Properties["DELETE_WHEN"] = defaultDeleteWhen
+	if c.Spec.Properties["ROCKETMQ_CONFIG_deleteWhen"] == "" {
+		c.Spec.Properties["ROCKETMQ_CONFIG_deleteWhen"] = defaultDeleteWhen
 	}
-	if c.Spec.Properties["FILE_RESERVED_TIME"] == "" {
-		c.Spec.Properties["FILE_RESERVED_TIME"] = defaultFileReservedTime
+	if c.Spec.Properties["ROCKETMQ_CONFIG_fileReservedTime"] == "" {
+		c.Spec.Properties["ROCKETMQ_CONFIG_fileReservedTime"] = defaultFileReservedTime
 	}
-
-	if c.Spec.Properties["REPLICATION_MODE"] == "" {
-		c.Spec.Properties["REPLICATION_MODE"] = defaultReplicationMode
-	}
-	if c.Spec.Properties["FLUSH_DISK_TYPE"] == "" {
-		c.Spec.Properties["FLUSH_DISK_TYPE"] = defaultFlushDiskType
+	if c.Spec.Properties["ROCKETMQ_CONFIG_flushDiskType"] == "" {
+		c.Spec.Properties["ROCKETMQ_CONFIG_flushDiskType"] = defaultFlushDiskType
 	}
 	return c
 }

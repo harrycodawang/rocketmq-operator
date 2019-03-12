@@ -1,5 +1,5 @@
 ---
-apiVersion: "rocketmq.huanwei.io/v1alpha1"
+apiVersion: "rocketmq.operator.io/v1alpha1"
 kind: BrokerCluster
 metadata:
   name: mybrokercluster

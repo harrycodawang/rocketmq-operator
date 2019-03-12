@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t huanwei/rocketmq-broker-k8s:4.3.2 .
-docker push huanwei/rocketmq-broker-k8s:4.3.2
+docker build -t rocketmqinc/rocketmq:4.3.2-k8s .
+docker push rocketmqinc/rocketmq:4.3.2-k8s

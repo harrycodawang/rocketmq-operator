@@ -315,8 +315,9 @@ func (m *BrokerController) syncHandler(key string) error {
 	//todo: validate cluster, update cluster labels
 
 	// sync cluster
-	groupReplica := int(cluster.Spec.GroupReplicas)
-	for index := 0; index < groupReplica; index++ {
+	groupReplicas := int(cluster.Spec.GroupReplicas)
+	glog.V(2).Infof("Index = %d", groupReplicas)
+	for index := 0; index < groupReplicas; index++ {
 		svc, err := m.serviceLister.Services(cluster.Namespace).Get(fmt.Sprintf(cluster.Name+`-svc-%d`, index))
 		// If the resource doesn't exist, we'll create it
 		if apierrors.IsNotFound(err) {
@@ -342,18 +343,13 @@ func (m *BrokerController) syncHandler(key string) error {
 	// sync statefulsets
 	membersPerGroup := int(cluster.Spec.MembersPerGroup)
 	if membersPerGroup == 0 {
-		utilruntime.HandleError(fmt.Errorf("invalid membersPerGroup %s", membersPerGroup))
+		utilruntime.HandleError(fmt.Errorf("invalid membersPerGroup %d", membersPerGroup))
 		return nil
 	}
 
-	/*membersPerGroup := 1
-	if cluster.Spec.ClusterMode != "ALL-MASTER" && cluster.Spec.MembersPerGroup != nil{
-		membersPerGroup := int(cluster.Spec.MembersPerGroup)
-	}*/
-
 	readyGroups := 0
 	readyMembers := 0
-	for index := 0; index < groupReplica; index++ {
+	for index := 0; index < groupReplicas; index++ {
 		ss, err := m.statefulSetLister.StatefulSets(cluster.Namespace).Get(fmt.Sprintf(cluster.Name+`-%d`, index))
 		// If the resource doesn't exist, we'll create it
 		if apierrors.IsNotFound(err) {

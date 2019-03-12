@@ -13,3 +13,7 @@ spec:
     kind: BrokerCluster
     singular: brokercluster
     plural: brokerclusters
+    shortNames:
+    - bc
+    - rocket
+    - rkt

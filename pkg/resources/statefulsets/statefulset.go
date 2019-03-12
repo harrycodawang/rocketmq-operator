@@ -18,6 +18,7 @@ package statefulsets
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/harrycodawang/rocketmq-operator/pkg/apis/rocketmq/v1alpha1"
 	"github.com/harrycodawang/rocketmq-operator/pkg/constants"
@@ -116,7 +117,22 @@ func NewStatefulSet(cluster *v1alpha1.BrokerCluster, index int, storageClass str
 }
 
 func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
-	return v1.Container{
+	var configSlice []v1.EnvVar
+	for k, v := range cluster.Spec.Properties {
+		envK := strings.Join([]string{"ROCKETMQ_CONFIG_", k}, "")
+		configSlice = append(configSlice, v1.EnvVar{Name: envK, Value: v})
+	}
+	configSlice = append(configSlice, v1.EnvVar{
+		Name:  "ROCKETMQ_CONFIG_brokerName",
+		Value: fmt.Sprintf(`broker-%d`, index)})
+	configSlice = append(configSlice, v1.EnvVar{
+		Name:  "ROCKETMQ_CONFIG_replicationMode",
+		Value: cluster.Spec.ReplicationMode})
+	configSlice = append(configSlice, v1.EnvVar{
+		Name:  "NAMESRV_ADDR",
+		Value: cluster.Spec.NameServers})
+
+	ret := v1.Container{
 		Name:            "broker",
 		ImagePullPolicy: "Always",
 		Image:           cluster.Spec.BrokerImage,
@@ -128,32 +144,7 @@ func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
 				ContainerPort: 10911,
 			},
 		},
-		Env: []v1.EnvVar{
-			{
-				Name:  "DELETE_WHEN",
-				Value: cluster.Spec.Properties["DELETE_WHEN"],
-			},
-			{
-				Name:  "FILE_RESERVED_TIME",
-				Value: cluster.Spec.Properties["FILE_RESERVED_TIME"],
-			},
-			{
-				Name:  "BROKER_NAME",
-				Value: fmt.Sprintf(`broker-%d`, index),
-			},
-			{
-				Name:  "REPLICATION_MODE",
-				Value: cluster.Spec.ReplicationMode,
-			},
-			{
-				Name:  "FLUSH_DISK_TYPE",
-				Value: cluster.Spec.Properties["FLUSH_DISK_TYPE"],
-			},
-			{
-				Name:  "NAMESRV_ADDR",
-				Value: cluster.Spec.NameServers,
-			},
-		},
+		Env:     configSlice,
 		Command: []string{"./brokerStart.sh"},
 		VolumeMounts: []v1.VolumeMount{
 			{
@@ -166,6 +157,8 @@ func brokerContainer(cluster *v1alpha1.BrokerCluster, index int) v1.Container {
 			},
 		},
 	}
+
+	return ret
 
 }
 
